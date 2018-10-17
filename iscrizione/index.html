@@ -31,9 +31,10 @@
 						<label for="matricola">Matricola</label>      
 						<input type="text" class="form-control" id="id" name="id" placeholder="VRXXXXXX" pattern="VR[0-9]{6}" required>
 					</div>		
-					<div class="form-group col-md-10">
+					<div class="form-group col-md-8">
 						<label for="corsostudi">Corso di laurea</label>
-						<select id="corsostudi" name="course" class="form-control">
+						<select id="corsostudi" name="course" class="form-control" required>
+							<option value="" selected disabled>Seleziona</option>
 							<option value="informatica-triennale">Laurea in Informatica</option>
 							<option value="informatica-magistrale">Laurea magistrale in Ingegneria e scienze informatiche</option>
 							<option value="bioinformatica-triennale">Laurea in Bioinformatica</option> 
@@ -41,6 +42,15 @@
 							<option value="matematica-triennale">Laurea in Matematica Applicata</option>
 							<option value="matematica-magistrale">Laurea magistrale in Matematica</option>
 							<option value="altro">Altro</option>
+						</select>
+					</div>
+					<div class="form-group col-md-2">
+						<label for="year">Anno di corso</label>
+						<select id="year" name="year" class="form-control" required>
+							<option value="" selected disabled>Seleziona</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
 						</select>
 					</div>
 				</div>
@@ -52,7 +62,7 @@
 					<div class="form-group col-md-4">
 						<label for="phone">Numero di cellulare (opzionale)</label>
 						<input type="tel" class="form-control" id="phone" name="phone" placeholder="cellulare" pattern="[0-9]+">
-						<small class="form-text text-muted">Il numero di telefono verrà usato per invitarvi al canale e al gruppo Telegram del corso</small>
+						<!--<small class="form-text text-muted">Il numero di telefono verrà usato per invitarvi al canale e al gruppo Telegram del corso</small>-->
 					</div>
 				</div>
 				<hr>
