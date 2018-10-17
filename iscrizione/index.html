@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<title>Iscriviti a Sfide di Programmazione</title>
+</head>
+<body>
+	<div style="max-width: 1000px; padding-bottom: 75px" class="container">
+		<header>
+			<br>
+			<h1 style="text-align: center">Iscrizione a Sfide di Programmazione</h1>
+		</header>
+		<br>
+		<form id="form" class="needs-validation" action="#" method="POST" autocomplete="off"> 
+			<fieldset>
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label for="first_name">Nome</label>
+						<input type="text" class="form-control" id="fist_name" name="first-name" placeholder="Nome" required>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="last_name">Cognome</label>
+						<input type="text" class="form-control" id="last_name" name="last-name" placeholder="Cognome" required>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-2">
+						<label for="matricola">Matricola</label>      
+						<input type="text" class="form-control" id="id" name="id" placeholder="VRXXXXXX" pattern="VR[0-9]{6}" required>
+					</div>		
+					<div class="form-group col-md-10">
+						<label for="corsostudi">Corso di laurea</label>
+						<select id="corsostudi" name="course" class="form-control">
+							<option value="informatica-triennale">Laurea in Informatica</option>
+							<option value="informatica-magistrale">Laurea magistrale in Ingegneria e scienze informatiche</option>
+							<option value="bioinformatica-triennale">Laurea in Bioinformatica</option> 
+							<option value="bioinformatica-magistrale">Laurea magistrale in Medical bioinformatics</option>
+							<option value="matematica-triennale">Laurea in Matematica Applicata</option>
+							<option value="matematica-magistrale">Laurea magistrale in Matematica</option>
+							<option value="altro">Altro</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-8">
+						<label for="email-istituzionale">Email</label>
+						<input type="email" class="form-control" id="email" name="email" placeholder="user@example.com" required>
+					</div>
+					<div class="form-group col-md-4">
+						<label for="phone">Numero di cellulare (opzionale)</label>
+						<input type="tel" class="form-control" id="phone" name="phone" placeholder="cellulare" pattern="[0-9]+">
+						<small class="form-text text-muted">Il numero di telefono verrà usato per invitarvi al canale e al gruppo Telegram del corso</small>
+					</div>
+				</div>
+				<hr>
+				<div class="form-group">
+					<div>Hai mai programmato ?</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" id="knows-programming-yes" name="knows-programming" class="custom-control-input" value="true" onclick="show(this, 'programming-competences');" required>
+						<label class="custom-control-label" for="knows-programming-yes">Si</label>
+				  	</div>
+				  	<div class="custom-control custom-radio">
+						<input type="radio" id="knows-programming-no" name="knows-programming" class="custom-control-input" value="false" onclick="hide(this, 'programming-competences');" required>
+						<label class="custom-control-label" for="knows-programming-no">No</label>
+				  	</div>
+				</div>
+				<div id="programming-competences" hidden>
+					<hr>
+					<div class="form-group">
+						<p>Indica quali linguaggi di programmazione conosci</p>
+						<table class="table" id="language-table">
+							<thead>
+								<tr>
+									<th>Linguaggio</th>
+									<th>Esperienza</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><select class="form-control" id="language-name-select"></select></td>
+									<td>
+										<select class="form-control" id="language-experience-select">
+											<option>0-100</option>
+											<option>100-1.000</option>
+											<option>1.000-10.000</option>
+											<option>10.000+</option>
+										</select>
+									</td>
+									<td>
+										<button type="button" class="btn btn-default" onclick="add_language()">Aggiungi</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<small class="form-text text-muted">
+							<p>
+								Aggiungere alla tabella i linguaggi di programmazione che si conoscono, 
+								indicando per ogni linguaggio il livello di esperienza, 
+								misurato in numero di righe di codice scritte in tale linguaggio.
+							</p>
+						</small>
+					</div>
+					<hr>
+					<div class="form-group">
+						<p>Quali dei seguenti concetti di programmazione conosci ?</p>
+						<table id="language-table" width="100%">
+							<tr>
+								<td width="25%"><label><input type="checkbox" name="programming-concepts[]" value="variables"> variabili</label></td>
+								<td width="25%"><label><input type="checkbox" name="programming-concepts[]" value="cycles"> cicli</label></td>
+								<td width="25%"><label><input type="checkbox" name="programming-concepts[]" value="arrays"> array</label></td>
+								<td width="25%"><label><input type="checkbox" name="programming-concepts[]" value="functions"> funzioni</label></td>
+							</tr>
+							<tr>
+								<td><label><input type="checkbox" name="programming-concepts[]" value="objects"> oggetti</label></td>
+								<td><label><input type="checkbox" name="programming-concepts[]" value="classes"> classi</label></td>
+								<td><label><input type="checkbox" name="programming-concepts[]" value="inheritance"> ereditarietà</label></td>
+								<td><label><input type="checkbox" name="programming-concepts[]" value="exceptions"> eccezzioni</label></td>
+							</tr>
+							<tr>
+								<td><label><input type="checkbox" name="programming-concepts[]" value="templates"> template</label></td>
+								<td><label><input type="checkbox" name="programming-concepts[]" value="containers"> containers</label></td>
+								<td><label><input type="checkbox" name="programming-concepts[]" value="agents"> agenti</label></td>
+								<td><label><input type="checkbox" name="programming-concepts[]" value="threads"> threads</label></td>
+							</tr>
+						</table>
+					</div>
+					<hr>
+					<div class="form-group">
+						<p>Quali delle seguenti tecniche algoritmiche conosci ?</p>
+						<table width="100%">
+							<tr>
+								<td width="33%"><label><input type="checkbox" name="known-algorithmic-concepts[]" value="recursion"> ricorsione</label></td>
+								<td width="33%"><label><input type="checkbox" name="known-algorithmic-concepts[]" value="dynamic-programming"> programmazione dinamica</label></td>
+								<td width="33%"><label><input type="checkbox" name="known-algorithmic-concepts[]" value="data-structures"> strutture dati</label></td>
+							</tr>
+							<tr>
+								<td><label><input type="checkbox" name="known-algorithmic-concepts[]" value="recursion-with-memoization"> ricorsione con memoizzazione</label></td>
+								<td><label><input type="checkbox" name="known-algorithmic-concepts[]" value="amortized-analysis"> analisi ammortizzata</label></td>
+							</tr>
+						</table>
+					</div>
+					<hr>
+					<div class="form-group">
+						<p>Quali dei seguenti algoritmi conosci ?</p>
+						<table width="100%">
+							<tr>
+								<td width="25%"><label><input type="checkbox" name="known-algorithms[]" value="Euclid-algorithm"> algoritmo di Euclide</label></td>
+								<td width="25%"><label><input type="checkbox" name="known-algorithms[]" value="binary-search"> ricerca binaria</label></td>
+								<td width="25%"><label><input type="checkbox" name="known-algorithms[]" value="insertion-sort"> insertion sort</label></td>
+								<td width="25%"><label><input type="checkbox" name="known-algorithms[]" value="merge-sort"> merge sort</label></td>
+							</tr>
+							<tr>
+								<td><label><input type="checkbox" name="known-algorithms[]" value="quick-sort"> quick sort</label></td>
+								<td><label><input type="checkbox" name="known-algorithms[]" value="binary-heaps"> binary heaps</label></td>
+								<td><label><input type="checkbox" name="known-algorithms[]" value="BFS"> DFS</label></td>
+								<td><label><input type="checkbox" name="known-algorithms[]" value="BFS"> BFS</label></td>
+							</tr>
+							<tr>
+								<td><label><input type="checkbox" name="known-algorithms[]" value="Bellman-Ford"> Bellman-Ford</label></td>
+								<td><label><input type="checkbox" name="known-algorithms[]" value="Dijkstra"> Dijkstra</label></td>
+							</tr>
+						</table>
+					</div>
+					<hr>
+					<div class="form-group">
+						<p>Quali delle seguenti competenze informatiche possiedi ?</p>
+						<table width="100%">
+							<tr>
+								<td width="33%"><label><input type="checkbox" name="competences[]" value="web-development"> Sviluppo web (HTML5/CSS/JS)</label></td>
+								<td width="33%"><label><input type="checkbox" name="competences[]" value="desktop-development"> Sviluppo applicazioni desktop</label></td>
+								<td witdh="33%"><label><input type="checkbox" name="competences[]" value="android-development"> Sviluppo app Android</label></td>
+							</tr>
+							<tr>
+								<td><label><input type="checkbox" name="competences[]" value="ios-development"> Sviluppo app iOS</label></td>
+								<td><label><input type="checkbox" name="competences[]" value="relational-databases"> Database relazionali (SQL)</label></td>
+								<td><label><input type="checkbox" name="competences[]" value="embedded"> Programmazione sistemi embedded</label></td>
+							</tr>
+							<tr>
+								<td><label><input type="checkbox" name="competences[]" value="non-relational-databases"> Database non relazionali </label></td>
+								<td><label><input type="checkbox" name="competences[]" value="system-administration"> Amministrazione di sistemi Linux/UNIX</label></td>
+								<td><label><input type="checkbox" name="competences[]" value="networks"> Conoscenza delle reti</label></td>
+							</tr>
+							<tr>
+								<td><label><input type="checkbox" name="competences[]" value="security"> Sicurezza informatica</label></td>
+							</tr>
+						</table>
+					</div>
+					<hr>
+					<div class="form-group">
+						<p>Hai mai partecipato a contest di programmazione ?</p>
+						<div class="custom-control custom-radio">
+							<input type="radio" id="hai-mai-partecipato-contest-si" name="partecipated-at-contests" class="custom-control-input" value="true" onclick="show(this, 'contests');">
+							<label class="custom-control-label" for="hai-mai-partecipato-contest-si">Si</label>
+						  </div>
+						  <div class="custom-control custom-radio">
+							<input type="radio" id="hai-mai-partecipato-contest-no" name="partecipated-at-contests" class="custom-control-input" value="false" onclick="hide(this, 'contests');" checked>
+							<label class="custom-control-label" for="hai-mai-partecipato-contest-no">No</label>
+						  </div>	
+					</div>
+					<div class="form-group" id="contests" hidden>
+						<hr>
+						<p>A quali dei seguenti contest di programmazione hai partecipato ?</p>
+						<div class="form-check">
+							<label><input type="checkbox" name="participated-contests[]" class="form-check-input" value="olimpiadi" >Olimpiadi di Informatica</label>
+						</div>
+						<div class="form-check">
+							<label><input type="checkbox" name="participated-contests[]" class="form-check-input" value="coci">COCI</label>
+						</div>
+						<div class="form-check">
+							<label><input type="checkbox" name="participated-contests[]" class="form-check-input" value="hashcode">Google Hashcode</label>
+						</div>
+						<div class="form-check">
+							<label><input type="checkbox" name="participated-contests[]" class="form-check-input" value="codejam">Google Codejam</label>
+						</div>
+						<div class="form-check">
+							<label><input type="checkbox" class="form-check-input" value="altro">
+								<input type="text" name="participated-contests[]" class="form-control" placeholder="Altro (specificare)">
+							</label>
+						</div>
+					</div>
+					<hr>
+					<div class="form-group">
+						<p>Hai esperienze con l'uso di git ?</p>
+						<div class="custom-control custom-radio">
+							<input type="radio" id="hai-usato-git-si" name="knows-git" class="custom-control-input" value="true" onclick="show(this, 'git-page');">
+							<label class="custom-control-label" for="hai-usato-git-si">Si</label>
+						  </div>
+						  <div class="custom-control custom-radio">
+							<input type="radio" id="hai-usato-git-no" name="knows-git" class="custom-control-input" value="false" onclick="hide(this, 'git-page');" checked>
+							<label class="custom-control-label" for="hai-usato-git-no">No</label>
+						  </div>
+					</div>
+					<div class="form-group" id="git-page" hidden>
+						<hr>
+						<p>Possiedi una pagina su un servizio di hosting git (GitHub, GitLab, Bitbucket) ? Se si, inserisci il link qui sotto</p>
+						<input class="form-control" type="url" name="git-page" placeholder="Pagina git">
+					</div>
+				</div>
+			</fieldset>
+			<button class="btn btn-primary" type="submit" style="float: right;">Invia</button>
+		</form>
+	</div>
+	<script src="/assets/js/iscrizione.js"></script>
+</body>
+</html>
