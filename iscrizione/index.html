@@ -14,7 +14,7 @@
 			<h1 style="text-align: center">Iscrizione a Sfide di Programmazione</h1>
 		</header>
 		<br>
-		<form id="form" class="needs-validation" action="#" method="POST" autocomplete="off"> 
+		<form id="form" class="needs-validation" action="http://localhost/register.php" method="POST" autocomplete="off"> 
 			<fieldset>
 				<div class="form-row">
 					<div class="form-group col-md-6">
@@ -56,8 +56,9 @@
 				</div>
 				<div class="form-row">
 					<div class="form-group col-md-8">
-						<label for="email-istituzionale">Email</label>
-						<input type="email" class="form-control" id="email" name="email" placeholder="user@example.com" required>
+						<label for="email-istituzionale">Email istituzionale</label>
+						<input type="email" class="form-control" id="email" name="email" placeholder="idXXXYYY@studenti.univr.it" pattern="(id[0-9]{3}[a-z]{3}|[a-z]+\.[a-z]+(_[0-9]{2})?@(studenti\.)?univr\.it" required>
+						<small class="form-text text-muted">Inserire un indirizzo email nella forma 'idXXXYY@studenti.univr.it' oppure 'nome.cognome@studenti.univr.it'</small>
 					</div>
 					<div class="form-group col-md-4">
 						<label for="phone">Numero di cellulare (opzionale)</label>
