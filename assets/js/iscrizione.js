@@ -67,6 +67,12 @@ function update_language_select() {
 
 window.onload = () => {
 	update_language_select();
+	var corsostudi = document.getElementById('corsostudi');
+	corsostudi.onchange = () => {
+		var anno3 = document.getElementById('anno3');
+		anno3.hidden = corsostudi.value.includes('magistrale');
+	}
+
 }
 
 function add_language() {
@@ -93,3 +99,4 @@ function add_language() {
 	row.insertCell(2).appendChild(delete_button);
 	update_language_select();
 }
+
