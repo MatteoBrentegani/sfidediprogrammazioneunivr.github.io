@@ -15,14 +15,8 @@
 		</header>
 		<br>
 		<div>
-<?php 
-	$send_email = false; // <-- change to true to send a confirmation email 	
-	$success = true;
-
-	$dbhost = ""; // <-- insert IP address of db server
-	$dbname = "SfideDiProgrammazione";
-	$dbuser = ""; // <-- insert username for access to db
-	$dbpass = ""; // <-- insert password for db user
+<?php
+	include "/var/www/private/db_sfide.php";
 
 	$mysqli = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
 
@@ -33,38 +27,43 @@
 	$stmt = $mysqli->prepare("INSERT INTO studenti(nome, cognome, email, matricola, telefono, corso, anno) VALUES (?, ?, ?, ?, ?, ?, ?)");
 	$stmt->bind_param("ssssssi", $_POST["first-name"], $_POST["last-name"], $_POST["email"], $_POST["id"], $_POST["phone"], $_POST["course"], $_POST["year"]);
 	$success = $stmt->execute();
+	$id = $mysqli->insert_id;
 
 	if ($success) {
-		$stmt = $mysqli->prepare("INSERT INTO conoscenze(id, conoscenze) VALUES ((SELECT id FROM studenti WHERE matricola = ?), ?)");
-		$stmt->bind_param("ss", $_POST["id"], json_encode($_POST));
-		$success = $stmt->execute();
-	}
-	
-	$student_id = $_POST["id"];	
-	$student_name = $_POST["first-name"];
-	$student_email = $_POST["email"];
+		$stmt = $mysqli->prepare("INSERT INTO conoscenze(studente, sa_programmare, concetti_di_programmazione, tecniche_algoritmiche, algoritmi, competenze, ha_partecipato_a_gare, gare_partecipate, conosce_git) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+		$sa_programmare = $_POST["knows-programming"] == "true";
+		$concetti_di_programmazione = implode(";", $_POST["programming-concepts"]) ?? null;
+		$tecniche_algoritmiche = implode(";", $_POST["known-algorithmic-concepts"]) ?? null;
+		$algoritmi = implode(";", $_POST["known-algorithms"]) ?? null;
+		$competenze = implode(";", $_POST["competences"]) ?? null;
+		$ha_partecipato_a_gare = $_POST["partecipated-at-contests"] == "true";
+		$gare_partecipate = implode(";", $_POST["participated-contests"]) ?? null;
+		$conosce_git = $_POST["knows-git"] == "true";
+		$stmt->bind_param("iissssisi", $id, $sa_programmare, $concetti_di_programmazione, $tecniche_algoritmiche, 
+			$algoritmi, $competenze, $ha_partecipato_a_gare, $gare_partecipate, $conosce_git);
+		$stmt->execute();
 
-	if ($success and $send_email) {
-	
-		$mail_subject = "Iscrizione Sfide di Programmazione";
-		$mail_body = "Benvenuto " . $student_name . "!\r\n\r\n" . 
-			"La tua iscrizone a Sfide di Programmazione è stata registrata con successo\r\n";
-		$mail_from = "test@example.com"; // <-- insert email address from wich sending the email
-		$mail_headers = "From: " . $mail_from . "\r\n" . "Reply-To: " . $mail_from;
+		if ($_POST["knows-git"] == "true" and $_POST["git-page"]) {
+			$stmt = $mysqli->prepare("INSERT INTO pagine_git(studente, url) VALUES (?, ?)");
+			$stmt->bind_param("is", $id, $_POST["git-page"]);
+			$stmt->execute();
+		}
 
-		if (!mail($student_email, $mail_subject, $mail_body, $mail_headers)) {
-			echo "<h2>Errore!</h2>";
-			echo "<p>Non siamo riusciti a spedire l'email di conferma all'indirizzo " . $student_email . "!</p>";
-			echo "<p>L'indirizzo immesso è corretto?</p>";
+		if (array_key_exists("languages", $_POST)) {
+			$languages = $_POST["languages"];
+			$stmt = $mysqli->prepare("INSERT INTO linguaggi(studente, nome, esperienza) VALUES (?, ?, ?)"); 
+			foreach ($languages as $name => $experience) {
+				$stmt->bind_param("iss", $id, $name, $experience);
+				$stmt->execute();
+			}
 		}
 	}
+	
+	$student_name = $_POST["first-name"];
 
 	if ($success) {
 		echo "<h2>Successo!</h2>";
 		echo "<p>" . $student_name . ", la tua registrazione a 'Sfide di Programmazione' è stata registrata con successo</p>";
-		if ($send_email) {
-			echo "<p>Un email di conferma è stata inviata con successo all'indirizzo " . $student_email . "</p>";
-		}
 	} else {
 		echo "<h2>Errore!</h2>";
 		echo "<p>La registrazione è fallita. Questo potrebbe essere causato dal fatto che la matricola è già presente nel sistema, oppure alcuni dei dati immessi sono errati</p>";
